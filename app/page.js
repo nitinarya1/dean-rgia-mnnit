@@ -95,8 +95,8 @@ export default function Home() {
               View All <svg className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7"/></svg>
             </Link>
           </div>
-          <div className="flex-1 overflow-hidden ml-40 md:ml-48">
-            <div className="whitespace-nowrap animate-[marquee_25s_linear_infinite] inline-block text-white">
+          <div className="flex-1 overflow-hidden ml-40 md:ml-48 group">
+            <div className="whitespace-nowrap animate-[marquee_25s_linear_infinite] group-hover:[animation-play-state:paused] inline-block text-white">
               {announcements.map((ann, idx) => (
                 <span key={ann._id} className="mx-8 inline-flex items-center gap-3">
                   <span className="text-teal-300 text-sm">{new Date(ann.date).toLocaleDateString()}</span>
