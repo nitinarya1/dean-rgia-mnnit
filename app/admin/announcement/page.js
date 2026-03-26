@@ -139,7 +139,14 @@ export default function AdminAnnouncements() {
                 <tr key={item._id} className="hover:bg-slate-50 transition-colors">
                   <td className="py-4 px-6">
                     <div className="flex items-center gap-3 mb-1">
-                      <p className="text-slate-900 font-semibold text-sm">{item.title}</p>
+                      <p className="text-slate-900 font-semibold text-sm flex items-center gap-2">
+                        {item.title}
+                        {item.link && (
+                          <a href={item.link.startsWith('http') ? item.link : `https://${item.link}`} target="_blank" className="text-blue-500 hover:text-blue-700" title="View Link">
+                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+                          </a>
+                        )}
+                      </p>
                       {item.isNew && (
                         <span className="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">New</span>
                       )}

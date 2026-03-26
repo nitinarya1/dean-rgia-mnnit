@@ -183,7 +183,7 @@ export default function DeanList() {
                                   </p>
                                   {dean.profileLink && (
                                     <a 
-                                      href={dean.profileLink} 
+                                      href={dean.profileLink.startsWith('http') ? dean.profileLink : `https://${dean.profileLink}`} 
                                       target="_blank" 
                                       rel="noopener noreferrer"
                                       className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-slate-100 text-slate-700 text-xs font-bold hover:bg-teal-600 hover:text-white transition-colors border border-slate-200 hover:border-teal-600 w-fit mx-auto relative z-10"
