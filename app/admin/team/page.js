@@ -134,7 +134,14 @@ export default function AdminTeam() {
                         <img src={item.image || "/placeholder-professor.svg"} alt={item.name} className="w-full h-full object-cover" onError={(e) => e.target.src = "/placeholder-professor.svg"} />
                       </div>
                       <div>
-                        <p className="text-slate-900 font-semibold text-sm">{item.name}</p>
+                        <p className="text-slate-900 font-semibold text-sm flex items-center gap-2">
+                          {item.name}
+                          {item.profileLink && (
+                            <a href={item.profileLink.startsWith('http') ? item.profileLink : `https://${item.profileLink}`} target="_blank" className="text-blue-500 hover:text-blue-700" title="View Profile">
+                              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+                            </a>
+                          )}
+                        </p>
                         <p className="text-indigo-600 text-xs font-medium">{item.role}</p>
                         <p className="text-slate-500 text-xs sm:hidden mt-1">{item.department}</p>
                       </div>

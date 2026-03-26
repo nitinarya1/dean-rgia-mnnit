@@ -83,7 +83,7 @@ export default function PublicationsPage() {
                     </h3>
                     {pub.link && (
                       <a 
-                        href={pub.link} 
+                        href={pub.link.startsWith('http') ? pub.link : `https://${pub.link}`} 
                         target="_blank" 
                         rel="noreferrer" 
                         className="inline-flex items-center gap-1.5 text-blue-600 hover:text-blue-800 font-medium text-sm mb-4 transition-colors bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-lg border border-blue-100"

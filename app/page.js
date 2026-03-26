@@ -101,7 +101,7 @@ export default function Home() {
                 <span key={ann._id} className="mx-8 inline-flex items-center gap-3">
                   <span className="text-teal-300 text-sm">{new Date(ann.date).toLocaleDateString()}</span>
                   {ann.link ? (
-                    <a href={ann.link} target="_blank" rel="noopener noreferrer" className="font-medium text-white hover:text-teal-200 underline underline-offset-4 decoration-teal-400 transition-colors">
+                    <a href={ann.link.startsWith('http') ? ann.link : `https://${ann.link}`} target="_blank" rel="noopener noreferrer" className="font-medium text-white hover:text-teal-200 underline underline-offset-4 decoration-teal-400 transition-colors">
                       {ann.title}
                     </a>
                   ) : (

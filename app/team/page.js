@@ -72,7 +72,7 @@ export default function TeamPage() {
                       </p>
                       {member.profileLink && (
                         <a 
-                          href={member.profileLink} 
+                          href={member.profileLink.startsWith('http') ? member.profileLink : `https://${member.profileLink}`} 
                           target="_blank" 
                           rel="noopener noreferrer"
                           className="px-4 py-1.5 rounded-full bg-teal-50 text-teal-700 text-xs font-bold hover:bg-teal-600 hover:text-white transition-colors border border-teal-200 hover:border-teal-600 flex items-center gap-1"

@@ -126,7 +126,7 @@ export default function DeanList() {
                                   {currentDean.profileLink && (
                                     <div className="w-full mt-2">
                                       <a 
-                                        href={currentDean.profileLink} 
+                                        href={currentDean.profileLink.startsWith('http') ? currentDean.profileLink : `https://${currentDean.profileLink}`} 
                                         target="_blank" 
                                         rel="noopener noreferrer"
                                         className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-slate-900 text-white text-sm font-semibold hover:bg-teal-700 transition-colors shadow-sm"
