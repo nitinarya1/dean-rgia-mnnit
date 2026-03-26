@@ -9,6 +9,20 @@ const app = express();
 app.use(cors());
 app.use(express.json({ limit: "10mb" }));
 
+// One-time setup endpoint to seed admin user
+const Admin = require("./models/Admin");
+const bcrypt = require("bcryptjs");
+app.post("/api/setup", async (req, res) => {
+  try {
+    await Admin.deleteMany({});
+    const hashedPassword = await bcrypt.hash("nitinarya8917813996", 10);
+    await Admin.create({ username: "aryar0779", password: hashedPassword });
+    res.json({ message: "Admin user created successfully" });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 // Routes
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/publications", require("./routes/publications"));
