@@ -20,12 +20,18 @@ app.use("/api/deans", require("./routes/deans"));
 app.use("/api/announcements", require("./routes/announcements"));
 app.use("/api/slideshow", require("./routes/slideshow"));
 
+const autoSeed = require("./autoSeed");
+
 // Connect to MongoDB and start server
 const PORT = process.env.PORT || 5000;
 mongoose
   .connect(process.env.MONGODB_URI)
-  .then(() => {
+  .then(async () => {
     console.log("✅ Connected to MongoDB");
+    
+    // Auto-seed admin user if missing
+    await autoSeed();
+
     app.listen(PORT, () => {
       console.log(`🚀 Server running on http://localhost:${PORT}`);
     });
