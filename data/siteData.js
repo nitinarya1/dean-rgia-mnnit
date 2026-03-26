@@ -20,7 +20,6 @@ export const navLinks = [
   { name: "Dean RGIA", href: "/dean-rgia" },
   { name: "Contact", href: "/contact" },
   { name: "Souvenir", href: "/souvenir" },
-  { name: "Admin", href: "/admin" },
 ];
 
 export const defaultPublications = [
