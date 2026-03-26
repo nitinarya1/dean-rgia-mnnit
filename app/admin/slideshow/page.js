@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { apiGet, apiPost, apiPut, apiDelete } from "@/lib/api";
+import ImageUploader from "@/components/ImageUploader";
 
 const emptyForm = { imageUrl: "", caption: "", order: 0, isActive: true };
 
@@ -82,8 +83,8 @@ export default function AdminSlideshow() {
         
         <form onSubmit={handleSubmit} className="grid md:grid-cols-2 gap-5">
           <div className="md:col-span-2">
-            <label className="block text-sm font-semibold text-slate-700 mb-1.5">Image URL *</label>
-            <input type="text" required value={form.imageUrl} onChange={(e) => setForm({ ...form, imageUrl: e.target.value })} className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500/50" placeholder="/mnnit-campus.png or https://..." />
+            <label className="block text-sm font-semibold text-slate-700 mb-1.5">Slide Image *</label>
+            <ImageUploader value={form.imageUrl} onChange={(val) => setForm({ ...form, imageUrl: val })} />
           </div>
           <div className="md:col-span-2">
             <label className="block text-sm font-semibold text-slate-700 mb-1.5">Caption (Hero Text)</label>

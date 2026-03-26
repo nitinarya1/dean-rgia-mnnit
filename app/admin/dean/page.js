@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { apiGet, apiPost, apiPut, apiDelete } from "@/lib/api";
+import ImageUploader from "@/components/ImageUploader";
 
 const emptyForm = { name: "", designation: "Dean (R G & IA)", department: "", tenure: "", image: "", bio: "", order: 0 };
 
@@ -106,8 +107,8 @@ export default function AdminDeans() {
           </div>
           <div className="md:col-span-2 grid md:grid-cols-2 gap-5">
             <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-1.5">Image URL</label>
-              <input type="text" value={form.image} onChange={(e) => setForm({ ...form, image: e.target.value })} className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500/50" placeholder="/placeholder-professor.svg" />
+              <label className="block text-sm font-semibold text-slate-700 mb-1.5">Photo</label>
+              <ImageUploader value={form.image} onChange={(val) => setForm({ ...form, image: val })} />
             </div>
             <div>
               <label className="block text-sm font-semibold text-slate-700 mb-1.5">Display Order (Sorting)</label>
