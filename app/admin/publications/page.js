@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { apiGet, apiPost, apiPut, apiDelete } from "@/lib/api";
+import ImageUploader from "@/components/ImageUploader";
 
-const emptyForm = { title: "", author: "", description: "" };
+const emptyForm = { title: "", author: "", description: "", image: "", link: "" };
 
 export default function AdminPublications() {
   const [items, setItems] = useState([]);
@@ -39,7 +40,13 @@ export default function AdminPublications() {
 
   const handleEdit = (item) => {
     setEditing(item._id);
-    setForm({ title: item.title, author: item.author, description: item.description });
+    setForm({ 
+      title: item.title, 
+      author: item.author, 
+      description: item.description || "",
+      image: item.image || "",
+      link: item.link || ""
+    });
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -85,9 +92,19 @@ export default function AdminPublications() {
               <input type="text" required value={form.author} onChange={(e) => setForm({ ...form, author: e.target.value })} className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500/50" placeholder="Author names" />
             </div>
           </div>
+          <div className="grid md:grid-cols-2 gap-5">
+            <div>
+              <label className="block text-sm font-semibold text-slate-700 mb-1.5">Description *</label>
+              <textarea required rows={4} value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500/50 resize-none" placeholder="Book description..." />
+            </div>
+            <div>
+              <label className="block text-sm font-semibold text-slate-700 mb-1.5">Book Cover / Photo</label>
+              <ImageUploader value={form.image} onChange={(val) => setForm({ ...form, image: val })} placeholder="Book Cover" />
+            </div>
+          </div>
           <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-1.5">Description *</label>
-            <textarea required rows={4} value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500/50 resize-none" placeholder="Book description..." />
+            <label className="block text-sm font-semibold text-slate-700 mb-1.5">Book Link (URL)</label>
+            <input type="text" value={form.link} onChange={(e) => setForm({ ...form, link: e.target.value })} className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500/50" placeholder="https://amazon.com/... or Publisher link" />
           </div>
 
           <div className="flex gap-3 pt-2">
@@ -121,10 +138,24 @@ export default function AdminPublications() {
                 <tr><td colSpan={3} className="text-center py-12 text-slate-500">No publications found</td></tr>
               ) : items.map((item) => (
                 <tr key={item._id} className="hover:bg-slate-50 transition-colors">
-                  <td className="py-4 px-6">
-                    <p className="text-slate-900 font-semibold text-sm">{item.title}</p>
-                    <p className="text-rose-600 text-xs font-medium sm:hidden">{item.author}</p>
-                    <p className="text-slate-500 text-xs truncate max-w-xs mt-1">{item.description}</p>
+                  <td className="py-4 px-6 flex items-start gap-4">
+                    {item.image ? (
+                      <div className="w-12 h-16 rounded overflow-hidden shrink-0 border border-slate-200">
+                        <img src={item.image} alt="Book cover" className="w-full h-full object-cover" />
+                      </div>
+                    ) : (
+                      <div className="w-12 h-16 rounded bg-slate-100 flex items-center justify-center shrink-0 border border-slate-200">
+                        <svg className="w-6 h-6 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+                      </div>
+                    )}
+                    <div>
+                      <p className="text-slate-900 font-semibold text-sm">
+                        {item.title}
+                        {item.link && <a href={item.link} target="_blank" className="ml-2 text-blue-500 text-xs font-normal underline">View Link</a>}
+                      </p>
+                      <p className="text-rose-600 text-xs font-medium sm:hidden">{item.author}</p>
+                      <p className="text-slate-500 text-xs truncate max-w-xs mt-1">{item.description}</p>
+                    </div>
                   </td>
                   <td className="py-4 px-6 hidden sm:table-cell">
                     <span className="text-rose-600 text-sm font-medium">{item.author}</span>

@@ -48,6 +48,45 @@ export default function AdminLayout({ children }) {
     router.push("/admin/login");
   };
 
+  // Implement 2-minute activity timeout
+  useEffect(() => {
+    if (!authChecked || pathname === "/admin/login") return;
+
+    let timeoutId;
+    const TIMEOUT_DURATION = 2 * 60 * 1000; // 2 minutes
+
+    const resetTimer = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        handleLogout();
+      }, TIMEOUT_DURATION);
+    };
+
+    // Events that indicate user activity
+    const events = ["mousemove", "keydown", "click", "scroll", "touchstart"];
+    events.forEach((e) => window.addEventListener(e, resetTimer));
+    
+    // Also reset or handle visibility change (tab change)
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "hidden") {
+        // start timer when hidden, or keep it running
+        resetTimer();
+      } else {
+        resetTimer();
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    // Initial start
+    resetTimer();
+
+    return () => {
+      clearTimeout(timeoutId);
+      events.forEach((e) => window.removeEventListener(e, resetTimer));
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [authChecked, pathname, router]);
+
   return (
     <div className="flex h-screen bg-slate-50 overflow-hidden">
       {/* Sidebar - Light Theme */}

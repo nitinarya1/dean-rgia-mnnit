@@ -6,6 +6,7 @@ const publicationSchema = new mongoose.Schema(
     author: { type: String, required: true },
     description: { type: String, default: "" },
     image: { type: String, default: "" },
+    link: { type: String, default: "" },
   },
   { timestamps: true }
 );
