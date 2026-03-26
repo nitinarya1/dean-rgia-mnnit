@@ -35,20 +35,12 @@ export default function AdminLayout({ children }) {
     }
   }, [pathname, router]);
 
-  if (!authChecked) {
-    return <div className="min-h-screen bg-slate-50 flex items-center justify-center">Loading...</div>;
-  }
-
-  if (pathname === "/admin/login") {
-    return <>{children}</>;
-  }
-
   const handleLogout = () => {
     logout();
     router.push("/admin/login");
   };
 
-  // Implement 2-minute activity timeout
+  // Implement 2-minute activity timeout (MUST BE ABOVE EARLY RETURNS)
   useEffect(() => {
     if (!authChecked || pathname === "/admin/login") return;
 
@@ -86,6 +78,14 @@ export default function AdminLayout({ children }) {
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
   }, [authChecked, pathname, router]);
+
+  if (!authChecked) {
+    return <div className="min-h-screen bg-slate-50 flex items-center justify-center">Loading...</div>;
+  }
+
+  if (pathname === "/admin/login") {
+    return <>{children}</>;
+  }
 
   return (
     <div className="flex h-screen bg-slate-50 overflow-hidden">
