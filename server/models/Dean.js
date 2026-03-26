@@ -8,6 +8,7 @@ const deanSchema = new mongoose.Schema(
     tenure: { type: String, required: true },
     image: { type: String, default: "" },
     bio: { type: String, default: "" },
+    profileLink: { type: String, default: "" },
     order: { type: Number, default: 0 },
   },
   { timestamps: true }

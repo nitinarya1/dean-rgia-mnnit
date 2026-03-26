@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { apiGet, apiPost, apiPut, apiDelete } from "@/lib/api";
 
-const emptyForm = { title: "", content: "", isActive: true, isNew: true };
+const emptyForm = { title: "", content: "", link: "", isActive: true, isNew: true };
 
 export default function AdminAnnouncements() {
   const [items, setItems] = useState([]);
@@ -43,6 +43,7 @@ export default function AdminAnnouncements() {
     setForm({ 
       title: item.title, 
       content: item.content || "", 
+      link: item.link || "",
       isActive: item.isActive, 
       isNew: item.isNew 
     });
@@ -89,6 +90,10 @@ export default function AdminAnnouncements() {
           <div className="md:col-span-2">
             <label className="block text-sm font-semibold text-slate-700 mb-1.5">Full Content / Description</label>
             <textarea rows={3} value={form.content} onChange={(e) => setForm({ ...form, content: e.target.value })} className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500/50 resize-none" placeholder="Provide details about the announcement..." />
+          </div>
+          <div className="md:col-span-2">
+            <label className="block text-sm font-semibold text-slate-700 mb-1.5">Link URL (Optional)</label>
+            <input type="url" value={form.link} onChange={(e) => setForm({ ...form, link: e.target.value })} className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500/50" placeholder="https://example.com/document.pdf" />
           </div>
           
           <div className="flex items-center gap-6 md:col-span-2 bg-slate-50 p-4 rounded-xl border border-slate-200">

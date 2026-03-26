@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { apiGet, apiPost, apiPut, apiDelete } from "@/lib/api";
 import ImageUploader from "@/components/ImageUploader";
 
-const emptyForm = { name: "", role: "", department: "", image: "" };
+const emptyForm = { name: "", role: "", department: "", image: "", profileLink: "" };
 
 export default function AdminTeam() {
   const [items, setItems] = useState([]);
@@ -40,7 +40,7 @@ export default function AdminTeam() {
 
   const handleEdit = (item) => {
     setEditing(item._id);
-    setForm({ name: item.name, role: item.role, department: item.department, image: item.image || "" });
+    setForm({ name: item.name, role: item.role, department: item.department, image: item.image || "", profileLink: item.profileLink || "" });
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -87,6 +87,10 @@ export default function AdminTeam() {
           <div>
             <label className="block text-sm font-semibold text-slate-700 mb-1.5">Department *</label>
             <input type="text" required value={form.department} onChange={(e) => setForm({ ...form, department: e.target.value })} className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500/50" placeholder="Engineering" />
+          </div>
+          <div>
+            <label className="block text-sm font-semibold text-slate-700 mb-1.5">Profile Link URL (Optional)</label>
+            <input type="url" value={form.profileLink} onChange={(e) => setForm({ ...form, profileLink: e.target.value })} className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500/50" placeholder="https://linkedin.com/in/username" />
           </div>
           <div className="md:col-span-2">
             <label className="block text-sm font-semibold text-slate-700 mb-1.5">Photo</label>

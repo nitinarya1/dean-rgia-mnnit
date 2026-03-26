@@ -43,11 +43,15 @@ export default function Home() {
                 <div className="absolute inset-0 bg-slate-900/40 mix-blend-multiply z-10" />
                 <div className="absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent z-10" />
                 
-                <img
+                <Image
                   src={slide.imageUrl}
                   alt={slide.caption || "MNNIT"}
-                  className="w-full h-full object-cover object-center transform scale-105"
-                  // A subtle zoom animation could be added here
+                  fill
+                  priority={index === 0}
+                  className="object-cover object-center transform scale-105"
+                  sizes="100vw"
+                  // Added unoptimized to prevent Next.js image optimization errors with base64/external domains without config
+                  unoptimized={slide.imageUrl.startsWith("data:") || slide.imageUrl.startsWith("http")} 
                 />
                 
                 <div className="absolute inset-0 z-20 flex flex-col justify-end pb-16 md:pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
@@ -83,15 +87,26 @@ export default function Home() {
       {/* 2. Announcements Marquee */}
       {announcements.length > 0 && (
         <section className="bg-teal-700 py-3 border-y border-teal-800 relative z-30 overflow-hidden flex items-center shadow-md">
-          <div className="px-4 py-1 bg-teal-900 text-teal-100 font-bold text-sm uppercase tracking-wider absolute left-0 z-10 h-full flex items-center shadow-[10px_0_15px_-3px_rgba(0,0,0,0.3)]">
-            <span className="animate-pulse mr-2">●</span> Announcements
+          <div className="px-4 py-1 bg-teal-900 text-teal-100 font-bold text-sm uppercase tracking-wider absolute left-0 z-10 h-full flex flex-col justify-center items-start shadow-[10px_0_15px_-3px_rgba(0,0,0,0.3)] min-w-[170px] border-r border-teal-800">
+            <div className="flex items-center">
+              <span className="animate-pulse mr-2 text-teal-400">●</span> Announcements
+            </div>
+            <Link href="/announcements" className="text-[10px] text-teal-300 hover:text-white mt-0.5 ml-4 flex items-center gap-1 group transition-colors">
+              View All <svg className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7"/></svg>
+            </Link>
           </div>
           <div className="flex-1 overflow-hidden ml-40 md:ml-48">
             <div className="whitespace-nowrap animate-[marquee_25s_linear_infinite] inline-block text-white">
               {announcements.map((ann, idx) => (
                 <span key={ann._id} className="mx-8 inline-flex items-center gap-3">
                   <span className="text-teal-300 text-sm">{new Date(ann.date).toLocaleDateString()}</span>
-                  <span className="font-medium text-white">{ann.title}</span>
+                  {ann.link ? (
+                    <a href={ann.link} target="_blank" rel="noopener noreferrer" className="font-medium text-white hover:text-teal-200 underline underline-offset-4 decoration-teal-400 transition-colors">
+                      {ann.title}
+                    </a>
+                  ) : (
+                    <span className="font-medium text-white">{ann.title}</span>
+                  )}
                   {ann.isNew && (
                     <span className="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase animate-pulse">
                       New
