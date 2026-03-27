@@ -52,6 +52,15 @@ export default function Navbar() {
                 </Link>
               );
             })}
+            
+            <div className="h-6 w-px bg-slate-200 mx-2 hidden lg:block" />
+            
+            <Link
+              href="/admin/login"
+              className="px-4 py-2 rounded-lg text-sm font-bold bg-amber-500 text-white hover:bg-amber-600 shadow-sm transition-all ml-1"
+            >
+              Admin Login
+            </Link>
           </div>
 
           {/* Mobile menu button */}
@@ -95,6 +104,16 @@ export default function Navbar() {
               </Link>
             );
           })}
+          
+          <div className="pt-2 mt-2 border-t border-slate-100">
+            <Link
+              href="/admin/login"
+              onClick={() => setIsOpen(false)}
+              className="block px-4 py-3 rounded-lg text-sm font-bold bg-amber-500 text-white text-center hover:bg-amber-600 shadow-sm transition-all"
+            >
+              Admin Login
+            </Link>
+          </div>
         </div>
       </div>
     </nav>
