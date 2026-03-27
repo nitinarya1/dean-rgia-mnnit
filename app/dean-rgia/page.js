@@ -187,7 +187,7 @@ export default function DeanList() {
                                       className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-slate-100 text-slate-700 text-xs font-bold hover:bg-teal-600 hover:text-white transition-colors border border-slate-200 hover:border-teal-600 w-fit mx-auto relative z-10"
                                       onClick={(e) => e.stopPropagation()}
                                     >
-                                      View Profile
+                                      View Complete Profile
                                       <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
                                     </a>
                                   )}
