@@ -25,14 +25,14 @@ export default function Navbar() {
               <h1 className="text-slate-900 font-bold text-lg md:text-xl tracking-wide">
                 Dean RGIA
               </h1>
-              <p className="text-teal-700 text-[10px] md:text-xs font-semibold leading-tight">
-                {siteInfo.institution.split(",")[0]}
+              <p className="text-teal-700 text-xs font-semibold leading-tight tracking-wide">
+                MNNIT Allahabad
               </p>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-1">
+          <div className="hidden xl:flex items-center gap-1">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               const isAdmin = link.name === "Admin";
@@ -66,7 +66,7 @@ export default function Navbar() {
           {/* Mobile menu button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden p-2 rounded-lg text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors"
+            className="xl:hidden p-2 rounded-lg text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors"
             aria-label="Toggle menu"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -82,7 +82,7 @@ export default function Navbar() {
 
       {/* Mobile Navigation */}
       <div
-        className={`lg:hidden transition-all duration-300 overflow-hidden ${
+        className={`xl:hidden transition-all duration-300 overflow-hidden ${
           isOpen ? "max-h-[500px] opacity-100 border-t border-slate-100" : "max-h-0 opacity-0"
         }`}
       >
