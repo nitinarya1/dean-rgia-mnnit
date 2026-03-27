@@ -14,19 +14,33 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 shrink-0">
+          <Link href="/" className="flex items-center gap-3 md:gap-4 shrink-0 overflow-hidden max-w-[70%] xl:max-w-none">
             {/* MNNIT Logo image (Placeholder from Wikipedia) */}
             <img 
               src="/mnnitlogo.jpg" 
               alt="MNNIT Logo" 
-              className="w-10 h-10 md:w-12 md:h-12 object-contain"
+              className="w-12 h-12 md:w-16 md:h-16 object-contain shrink-0"
             />
-            <div className="hidden sm:block">
-              <h1 className="text-slate-900 font-bold text-lg md:text-xl tracking-wide">
+            {/* Mobile/Tablet Compact View */}
+            <div className="xl:hidden">
+              <h1 className="text-slate-900 font-bold text-base sm:text-lg md:text-xl tracking-wide leading-tight">
                 Dean RGIA
               </h1>
-              <p className="text-teal-700 text-xs font-semibold leading-tight tracking-wide">
+              <p className="text-teal-700 text-[10px] sm:text-xs font-semibold leading-tight tracking-wide">
                 MNNIT Allahabad
+              </p>
+            </div>
+
+            {/* Desktop Full View */}
+            <div className="hidden xl:flex flex-col justify-center">
+              <h1 className="text-slate-900 font-bold text-[13px] tracking-wide leading-tight">
+                Dean, Resource Generation and International Affairs
+              </h1>
+              <h2 className="text-teal-800 text-[11px] font-bold leading-tight mt-0.5">
+                Motilal Nehru National Institute of Technology Allahabad, Prayagraj
+              </h2>
+              <p className="text-slate-600 text-[11px] font-semibold leading-tight mt-0.5">
+                मोतीलाल नेहरू राष्ट्रीय प्रौद्योगिकी संस्थान इलाहाबाद, प्रयागराज
               </p>
             </div>
           </Link>
