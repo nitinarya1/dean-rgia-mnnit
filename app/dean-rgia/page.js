@@ -121,17 +121,25 @@ export default function DeanList() {
                                     </div>
                                   )}
                                   
-                                  {currentDean.profileLink && (
+                                  {currentDean.profileLink ? (
                                     <div className="w-full mt-2">
                                       <a 
                                         href={currentDean.profileLink.startsWith('http') ? currentDean.profileLink : `https://${currentDean.profileLink}`} 
                                         target="_blank" 
                                         rel="noopener noreferrer"
                                         className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-slate-900 text-white text-sm font-semibold hover:bg-teal-700 transition-colors shadow-sm"
+                                        onClick={(e) => e.stopPropagation()}
                                       >
                                         View Complete Profile
                                         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
                                       </a>
+                                    </div>
+                                  ) : (
+                                    <div className="w-full mt-2">
+                                      <span className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-slate-200 text-slate-500 text-sm font-semibold cursor-default">
+                                        View Complete Profile
+                                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+                                      </span>
                                     </div>
                                   )}
                                 </div>
@@ -179,7 +187,7 @@ export default function DeanList() {
                                     </svg>
                                     {dean.tenure}
                                   </p>
-                                  {dean.profileLink && (
+                                  {dean.profileLink ? (
                                     <a 
                                       href={dean.profileLink.startsWith('http') ? dean.profileLink : `https://${dean.profileLink}`} 
                                       target="_blank" 
@@ -190,6 +198,11 @@ export default function DeanList() {
                                       View Complete Profile
                                       <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
                                     </a>
+                                  ) : (
+                                    <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-slate-100 text-slate-400 text-xs font-bold border border-slate-200 w-fit mx-auto cursor-default">
+                                      View Complete Profile
+                                      <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+                                    </span>
                                   )}
                                 </div>
                               </div>

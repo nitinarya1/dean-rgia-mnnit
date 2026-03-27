@@ -67,7 +67,7 @@ export default function TeamPage() {
                       <p className="text-slate-500 text-xs uppercase tracking-wider font-semibold mb-3">
                         {member.department}
                       </p>
-                      {member.profileLink && (
+                      {member.profileLink ? (
                         <a 
                           href={member.profileLink.startsWith('http') ? member.profileLink : `https://${member.profileLink}`} 
                           target="_blank" 
@@ -77,6 +77,11 @@ export default function TeamPage() {
                           View Complete Profile
                           <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
                         </a>
+                      ) : (
+                        <span className="px-4 py-1.5 rounded-full bg-slate-100 text-slate-400 text-xs font-bold border border-slate-200 flex items-center gap-1 cursor-default">
+                          View Complete Profile
+                          <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+                        </span>
                       )}
                     </div>
                   </div>

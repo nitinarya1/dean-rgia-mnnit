@@ -11,6 +11,14 @@ app.use(compression());
 app.use(cors());
 app.use(express.json({ limit: "10mb" }));
 
+// Cache public GET responses for 60 seconds to reduce latency
+app.use((req, res, next) => {
+  if (req.method === "GET") {
+    res.set("Cache-Control", "public, max-age=60, s-maxage=60, stale-while-revalidate=120");
+  }
+  next();
+});
+
 // One-time setup endpoint to seed admin user
 const Admin = require("./models/Admin");
 const bcrypt = require("bcryptjs");

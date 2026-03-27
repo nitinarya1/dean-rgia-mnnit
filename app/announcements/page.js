@@ -42,11 +42,14 @@ export default function AnnouncementsPage() {
             </div>
           ) : (
             <div className="space-y-6">
-              {announcements.map((ann, index) => (
+              {announcements.map((ann, index) => {
+                const url = ann.link ? (ann.link.startsWith('http') ? ann.link : `https://${ann.link}`) : null;
+                return (
                 <div 
                   key={ann._id}
-                  className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8 hover:shadow-md transition-shadow relative overflow-hidden animate-fade-in-up"
+                  className={`bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8 hover:shadow-md transition-shadow relative overflow-hidden animate-fade-in-up ${url ? 'cursor-pointer hover:border-teal-300' : ''}`}
                   style={{ animationDelay: `${index * 0.1}s` }}
+                  onClick={() => { if (url) window.open(url, '_blank', 'noopener,noreferrer'); }}
                 >
                   <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-teal-500" />
                   
@@ -63,7 +66,7 @@ export default function AnnouncementsPage() {
                         )}
                       </div>
                       
-                      <h2 className="text-xl md:text-2xl font-bold text-slate-900 mb-3">
+                      <h2 className={`text-xl md:text-2xl font-bold text-slate-900 mb-3 ${url ? 'group-hover:text-teal-700' : ''}`}>
                         {ann.title}
                       </h2>
                       
@@ -74,24 +77,20 @@ export default function AnnouncementsPage() {
                       )}
                     </div>
 
-                    {ann.link && (
+                    {url && (
                       <div className="shrink-0 pt-1">
-                        <a 
-                          href={ann.link.startsWith('http') ? ann.link : `https://${ann.link}`} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-slate-900 text-white text-sm font-medium rounded-xl hover:bg-teal-700 transition-colors shadow-sm"
-                        >
-                          View Details
+                        <span className="inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-slate-900 text-white text-sm font-medium rounded-xl hover:bg-teal-700 transition-colors shadow-sm">
+                          Open Link
                           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                           </svg>
-                        </a>
+                        </span>
                       </div>
                     )}
                   </div>
                 </div>
-              ))}
+                );
+              })}
             </div>
           )}
         </div>
