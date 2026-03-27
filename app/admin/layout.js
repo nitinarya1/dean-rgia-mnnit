@@ -33,6 +33,16 @@ export default function AdminLayout({ children }) {
     } else {
       setAuthChecked(true);
     }
+
+    // Secure logout on tab close or page refresh
+    const handleUnload = () => {
+      if (isLoggedIn()) {
+        sessionStorage.setItem("refresh_logout", "Logged out for privacy and security reasons due to page refresh.");
+        logout();
+      }
+    };
+    window.addEventListener("beforeunload", handleUnload);
+    return () => window.removeEventListener("beforeunload", handleUnload);
   }, [pathname, router]);
 
   const handleLogout = () => {
