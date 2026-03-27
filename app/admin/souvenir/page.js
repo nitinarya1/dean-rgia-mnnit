@@ -98,7 +98,7 @@ export default function AdminSouvenir() {
           </div>
           <div>
             <label className="block text-sm font-semibold text-slate-700 mb-1.5">PDF Link / URL</label>
-            <input type="url" value={form.pdfLink} onChange={(e) => setForm({ ...form, pdfLink: e.target.value })} className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500/50" placeholder="https://..." />
+            <input type="text" value={form.pdfLink} onChange={(e) => setForm({ ...form, pdfLink: e.target.value })} className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500/50" placeholder="drive.google.com/file/... or https://..." />
           </div>
           <div className="md:col-span-2">
             <label className="block text-sm font-semibold text-slate-700 mb-1.5">Description *</label>

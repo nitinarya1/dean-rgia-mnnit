@@ -17,16 +17,13 @@ export default function PublicationsPage() {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      {/* Hero */}
-      <section className="relative py-24 bg-white border-b border-slate-200">
-        <div className="absolute inset-0 hero-pattern opacity-50" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <SectionTitle
-            title="Publications"
-            subtitle="Books authored by our distinguished alumni and faculty"
-          />
+      <div className="bg-white border-b border-slate-200 py-3">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center gap-3">
+          <div className="w-1.5 h-5 bg-blue-500 rounded-full" />
+          <h1 className="text-lg font-bold text-slate-900">Publications</h1>
+          <span className="text-slate-400 text-sm hidden sm:inline">— Books authored by our distinguished alumni and faculty</span>
         </div>
-      </section>
+      </div>
 
       {/* Publications List */}
       <section className="py-20">

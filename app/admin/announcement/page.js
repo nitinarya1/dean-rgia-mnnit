@@ -93,7 +93,7 @@ export default function AdminAnnouncements() {
           </div>
           <div className="md:col-span-2">
             <label className="block text-sm font-semibold text-slate-700 mb-1.5">Link URL (Optional)</label>
-            <input type="url" value={form.link} onChange={(e) => setForm({ ...form, link: e.target.value })} className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500/50" placeholder="https://example.com/document.pdf" />
+            <input type="text" value={form.link} onChange={(e) => setForm({ ...form, link: e.target.value })} className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500/50" placeholder="example.com/document.pdf or https://example.com" />
           </div>
           
           <div className="flex items-center gap-6 md:col-span-2 bg-slate-50 p-4 rounded-xl border border-slate-200">

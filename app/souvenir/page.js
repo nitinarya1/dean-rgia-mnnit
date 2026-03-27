@@ -21,16 +21,13 @@ export default function SouvenirPage() {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      {/* Hero */}
-      <section className="relative py-24 bg-white border-b border-slate-200">
-        <div className="absolute inset-0 hero-pattern opacity-50" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <SectionTitle 
-            title="Souvenirs" 
-            subtitle="Explore our collection of Annual Convocation and Global Alumni Meet souvenirs"
-          />
+      <div className="bg-white border-b border-slate-200 py-3">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center gap-3">
+          <div className="w-1.5 h-5 bg-purple-500 rounded-full" />
+          <h1 className="text-lg font-bold text-slate-900">Souvenirs</h1>
+          <span className="text-slate-400 text-sm hidden sm:inline">— Convocation and Global Alumni Meet souvenirs</span>
         </div>
-      </section>
+      </div>
 
       {/* Tabs & Content */}
       <section className="py-20">

@@ -11,16 +11,13 @@ export default function ResourceGenerationPage() {
 
   return (
     <div className="min-h-screen">
-      {/* Hero */}
-      <section className="relative py-20 hero-pattern">
-        <div className="absolute inset-0 bg-gradient-to-b from-teal-500/5 to-transparent" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <SectionTitle
-            title="Resource Generation"
-            subtitle="Supporting the growth of MNNIT through resource mobilization"
-          />
+      <div className="bg-white border-b border-slate-200 py-3">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center gap-3">
+          <div className="w-1.5 h-5 bg-teal-500 rounded-full" />
+          <h1 className="text-lg font-bold text-slate-900">Resource Generation</h1>
+          <span className="text-slate-400 text-sm hidden sm:inline">— Supporting the growth of MNNIT through resource mobilization</span>
         </div>
-      </section>
+      </div>
 
       {/* Preamble */}
 <section className="py-16">

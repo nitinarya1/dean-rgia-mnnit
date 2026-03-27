@@ -108,7 +108,7 @@ export default function AdminDeans() {
           </div>
           <div>
             <label className="block text-sm font-semibold text-slate-700 mb-1.5">Profile Link URL (Optional)</label>
-            <input type="url" value={form.profileLink} onChange={(e) => setForm({ ...form, profileLink: e.target.value })} className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500/50" placeholder="https://example.com/profile" />
+            <input type="text" value={form.profileLink} onChange={(e) => setForm({ ...form, profileLink: e.target.value })} className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500/50" placeholder="example.com/profile or https://example.com" />
           </div>
           <div className="md:col-span-2 grid md:grid-cols-2 gap-5">
             <div>

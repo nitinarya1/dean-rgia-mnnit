@@ -18,16 +18,13 @@ export default function TeamPage() {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      {/* Hero */}
-      <section className="relative py-24 bg-white border-b border-slate-200">
-        <div className="absolute inset-0 hero-pattern opacity-50" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <SectionTitle 
-            title="Our Team" 
-            subtitle="Meet the dedicated professionals leading the Resource Generation and International Affairs initiatives."
-          />
+      <div className="bg-white border-b border-slate-200 py-3">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center gap-3">
+          <div className="w-1.5 h-5 bg-teal-500 rounded-full" />
+          <h1 className="text-lg font-bold text-slate-900">Our Team</h1>
+          <span className="text-slate-400 text-sm hidden sm:inline">— The dedicated professionals leading RGIA initiatives</span>
         </div>
-      </section>
+      </div>
 
       {/* Team Cards */}
       <section className="py-20">
