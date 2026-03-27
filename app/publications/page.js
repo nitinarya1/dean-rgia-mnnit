@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { apiGet } from "@/lib/api";
-import SectionTitle from "@/components/SectionTitle";
 
 export default function PublicationsPage() {
   const [publications, setPublications] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     apiGet("/publications")
@@ -14,6 +14,18 @@ export default function PublicationsPage() {
       .catch(() => setPublications([]))
       .finally(() => setLoading(false));
   }, []);
+
+  // Filtered publications
+  const filtered = useMemo(() => {
+    if (!search.trim()) return publications;
+    const q = search.toLowerCase();
+    return publications.filter(
+      (p) =>
+        p.title.toLowerCase().includes(q) ||
+        (p.author && p.author.toLowerCase().includes(q)) ||
+        (p.description && p.description.toLowerCase().includes(q))
+    );
+  }, [publications, search]);
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -25,34 +37,65 @@ export default function PublicationsPage() {
         </div>
       </div>
 
-      {/* Publications List */}
-      <section className="py-20">
+      <section className="py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+          {/* Search Bar */}
+          <div className="mb-8">
+            <div className="relative max-w-lg">
+              <svg className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+              <input
+                type="text"
+                placeholder="Search by title, author, or keyword..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 shadow-sm"
+              />
+            </div>
+          </div>
+
+          {/* Results count */}
+          {!loading && (
+            <p className="text-slate-500 text-xs mb-4 font-medium">
+              {filtered.length} publication{filtered.length !== 1 ? "s" : ""} found
+              {search && ` matching "${search}"`}
+            </p>
+          )}
+
           {loading ? (
             <div className="space-y-8">
               {[1, 2, 3].map((i) => (
                 <div key={i} className="glass-card p-8 h-44 shimmer" />
               ))}
             </div>
-          ) : publications.length === 0 ? (
+          ) : filtered.length === 0 ? (
             <div className="text-center py-24 glass-card">
               <svg className="w-16 h-16 text-slate-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
               </svg>
-              <p className="text-slate-500 text-lg">No publications found.</p>
+              <p className="text-slate-500 text-lg">
+                {search ? "No publications match your search." : "No publications found."}
+              </p>
+              {search && (
+                <button onClick={() => setSearch("")} className="mt-3 text-blue-600 text-sm font-semibold hover:underline">
+                  Clear search
+                </button>
+              )}
             </div>
           ) : (
             <div className="space-y-8">
-              {publications.map((pub, index) => (
+              {filtered.map((pub, index) => (
                 <div
                   key={pub._id}
                   className="glass-card p-8 md:p-10 flex flex-col md:flex-row gap-8 items-start animate-fade-in-up group relative overflow-hidden"
-                  style={{ animationDelay: `${index * 0.1}s` }}
+                  style={{ animationDelay: `${index * 0.05}s` }}
                 >
                   {/* Top accent on hover */}
                   <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity" />
 
-                  {/* Book Image Placeholder / Actual Image */}
+                  {/* Book Image */}
                   <div className="w-full md:w-36 h-48 md:h-52 rounded-xl bg-slate-100 flex items-center justify-center shrink-0 border border-slate-200 overflow-hidden shadow-sm group-hover:shadow-md transition-shadow">
                     {pub.image ? (
                       <img src={pub.image} alt={pub.title} className="w-full h-full object-cover" />
