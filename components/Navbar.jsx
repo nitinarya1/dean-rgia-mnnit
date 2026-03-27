@@ -1,18 +1,27 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { siteInfo, navLinks } from "@/data/siteData";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <nav className="sticky top-0 left-0 right-0 z-50 bg-white shadow-md">
+    <nav className="sticky top-0 left-0 right-0 z-50 bg-white shadow-md transition-all duration-300">
       {/* Top Tier: Institutional Logo & Full Name (Visible on lg+) */}
-      <div className="hidden lg:block bg-slate-50 border-b border-slate-200 relative z-20">
+      <div className={`hidden lg:block bg-slate-50 border-b border-slate-200 relative z-20 transition-all duration-500 overflow-hidden origin-top ${scrolled ? 'max-h-0 opacity-0' : 'max-h-[200px] opacity-100'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
           <Link href="/" className="flex items-center gap-5 shrink-0 group hover:opacity-90 transition-opacity">
             <img 
@@ -40,15 +49,15 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             
-            {/* Mobile/Tablet Compact Logo (Hidden on lg+) */}
-            <Link href="/" className="lg:hidden flex items-center gap-3 shrink-0">
+            {/* Mobile/Tablet Compact Logo */}
+            <Link href="/" className={`${!scrolled ? 'lg:hidden' : 'flex'} flex items-center gap-3 shrink-0`}>
               <img 
                 src="/mnnitlogo.jpg" 
                 alt="MNNIT Logo" 
-                className="w-10 h-10 object-contain shrink-0"
+                className={`object-contain shrink-0 transition-all duration-300 ${scrolled ? 'w-8 h-8 md:w-10 md:h-10' : 'w-10 h-10'}`}
               />
-              <div>
-                <h1 className="text-slate-900 font-bold text-lg tracking-wide leading-tight">
+              <div className={`${scrolled ? 'hidden xl:block' : ''}`}>
+                <h1 className="text-slate-900 font-bold text-base md:text-lg tracking-wide leading-tight">
                   Dean RGIA
                 </h1>
                 <p className="text-teal-700 text-[10px] font-semibold leading-tight tracking-wide">
