@@ -65,56 +65,10 @@ export default function AdminDeans() {
     }
   };
 
-  const handleSeedDeans = async () => {
-    if (!confirm("WARNING: This will delete ALL current deans and insert the 10 deans from the official historical list. Are you sure?")) return;
-    setLoading(true);
-    setMsg("Seeding database... please wait.");
-    
-    try {
-      // 1. Delete all current deans
-      for (const item of items) {
-        await apiDelete(`/deans/${item._id}`);
-      }
-      
-      // 2. Insert new deans
-      const deansList = [
-        { order: 10, name: "Prof. M. M. Gore", tenure: "31.12.2025 to Present", designation: "Dean (R G & IA)" },
-        { order: 9, name: "Prof. Shubhi Purwar", tenure: "31.12.2023 to 30.12.2025", designation: "Dean (R G & IA)" },
-        { order: 8, name: "Prof. Mukul Shukla", tenure: "12.09.2023 to 30.12.2023", designation: "Dean (R G & IA)" },
-        { order: 7, name: "Prof. Geetika", tenure: "12.03.2021 to 11.09.2023", designation: "Dean (R G & IA)" },
-        { order: 6, name: "Prof. Geetika", tenure: "01.08.2020 to 11.03.2021", designation: "Dean (R G & IA) (अतिरिक्त प्रभार)" },
-        { order: 5, name: "Prof. A. K. Singh", tenure: "01.08.2018 to 31.07.2020", designation: "Dean (R G & IA)" },
-        { order: 4, name: "Prof. M. M. Gore", tenure: "01.08.2016 to 31.07.2018", designation: "Dean (R G & IA)" },
-        { order: 3, name: "Prof. N. D. Pandey", tenure: "01.08.2014 to 31.07.2016", designation: "Dean (R G & IA)" },
-        { order: 2, name: "Prof. Dinesh Chandra", tenure: "01.08.2012 to 31.07.2014", designation: "Dean (R G & IA)" },
-        { order: 1, name: "Prof. Sudarshan Tiwari", tenure: "11.08.2011 to 31.07.2012", designation: "Dean (R G & IA)" },
-      ];
-
-      for (const dean of deansList) {
-        await apiPost("/deans", dean, true);
-      }
-      
-      setMsg("Database successfully seeded with 10 deans!");
-      load();
-    } catch (err) {
-      setMsg("Error seeding database: " + err.message);
-      setLoading(false);
-    }
-  };
-
   return (
     <div>
       {/* Page Header (Optional inside layout) */}
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-slate-900">Manage Dean Directory</h1>
-        <button 
-          onClick={handleSeedDeans} 
-          disabled={loading}
-          className="px-4 py-2 bg-indigo-50 border border-indigo-200 text-indigo-700 text-sm font-bold rounded-lg hover:bg-indigo-100 transition-colors"
-        >
-          {loading ? "Processing..." : "Auto-Fill Historical List"}
-        </button>
-      </div>
+      <h1 className="text-2xl font-bold text-slate-900 mb-6">Manage Dean Directory</h1>
 
       {msg && (
         <div className={`mb-6 p-4 rounded-xl text-sm border flex items-center gap-3 ${
