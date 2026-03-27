@@ -104,8 +104,14 @@ export default function Home() {
                   </div>
                 </>
               ) : (
-                <div className="w-full h-full flex items-center justify-center bg-slate-100">
-                  <p className="text-slate-400">Loading slideshow...</p>
+                <div className="w-full h-full flex flex-col items-center justify-center bg-slate-100 p-6 text-center">
+                  <div className="w-10 h-10 border-4 border-teal-200 border-t-teal-600 rounded-full animate-spin mb-5" />
+                  <h3 className="text-slate-700 font-bold tracking-wide text-sm md:text-base">
+                    Motilal Nehru National Institute of Technology Allahabad
+                  </h3>
+                  <p className="text-slate-500 text-xs md:text-sm mt-1 uppercase tracking-widest font-semibold">
+                    Resource Generation & International Affairs
+                  </p>
                 </div>
               )}
             </div>
