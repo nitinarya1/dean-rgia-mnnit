@@ -84,6 +84,7 @@ export default function AdminDashboard() {
         { key: "date", label: "Date" },
         { key: "isActive", label: "Active" },
       ],
+      label: "Export Announcements CSV",
     },
     team: {
       data: allData.team,
@@ -94,6 +95,7 @@ export default function AdminDashboard() {
         { key: "department", label: "Department" },
         { key: "profileLink", label: "Profile Link" },
       ],
+      label: "Export Team Members CSV",
     },
     deans: {
       data: allData.deans,
@@ -105,6 +107,7 @@ export default function AdminDashboard() {
         { key: "tenure", label: "Tenure" },
         { key: "profileLink", label: "Profile Link" },
       ],
+      label: "Export Deans CSV",
     },
     publications: {
       data: allData.publications,
@@ -115,6 +118,7 @@ export default function AdminDashboard() {
         { key: "description", label: "Description" },
         { key: "link", label: "Link" },
       ],
+      label: "Export Publications CSV",
     },
     mous: {
       data: allData.mous,
@@ -126,6 +130,7 @@ export default function AdminDashboard() {
         { key: "description", label: "Description" },
         { key: "status", label: "Status" },
       ],
+      label: "Export MoUs CSV",
     },
     souvenirs: {
       data: allData.souvenirs,
@@ -136,6 +141,7 @@ export default function AdminDashboard() {
         { key: "description", label: "Description" },
         { key: "pdfLink", label: "PDF Link" },
       ],
+      label: "Export Souvenirs CSV",
     },
     messages: {
       data: allData.messages,
@@ -147,6 +153,7 @@ export default function AdminDashboard() {
         { key: "message", label: "Message" },
         { key: "createdAt", label: "Received On" },
       ],
+      label: "Export Messages CSV",
     },
   };
 
@@ -194,6 +201,7 @@ export default function AdminDashboard() {
               data={config.data}
               filename={config.filename}
               columns={config.columns}
+              label={config.label}
             />
           ))}
         </div>

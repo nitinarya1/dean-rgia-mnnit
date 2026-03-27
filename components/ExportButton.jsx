@@ -7,8 +7,9 @@
  * @param {Array} data - Array of objects to export
  * @param {string} filename - Base filename (without extension)
  * @param {Array} columns - Optional array of { key, label } to control column order and headers
+ * @param {string} label - Optional text to display on the button (defaults to 'Export CSV')
  */
-export default function ExportButton({ data, filename = "export", columns, className = "" }) {
+export default function ExportButton({ data, filename = "export", columns, label = "Export CSV", className = "" }) {
   const handleExport = () => {
     if (!data || data.length === 0) {
       alert("No data to export.");
@@ -60,7 +61,7 @@ export default function ExportButton({ data, filename = "export", columns, class
       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
       </svg>
-      Export CSV
+      {label}
     </button>
   );
 }
