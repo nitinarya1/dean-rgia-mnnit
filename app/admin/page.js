@@ -193,7 +193,7 @@ export default function AdminDashboard() {
       {/* Data Export Section */}
       <div className="mt-8 bg-white rounded-2xl border border-slate-200 p-8 shadow-sm">
         <h2 className="text-xl font-bold text-slate-900 mb-2">Data Backup & Export</h2>
-        <p className="text-slate-500 text-sm mb-6">Download any section's data as a CSV file for record-keeping.</p>
+        <p className="text-slate-500 text-sm mb-6">Download any section&apos;s data as a CSV file for record-keeping.</p>
         <div className="flex flex-wrap gap-3">
           {Object.entries(exportConfigs).map(([key, config]) => (
             <ExportButton

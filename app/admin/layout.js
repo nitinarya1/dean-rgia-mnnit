@@ -24,6 +24,7 @@ export default function AdminLayout({ children }) {
 
   useEffect(() => {
     if (pathname === "/admin/login") {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       setAuthChecked(true);
       return;
     }

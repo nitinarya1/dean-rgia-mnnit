@@ -103,7 +103,7 @@ export default function AdminAnnouncements() {
             </label>
             <label className="flex items-center gap-3 cursor-pointer">
               <input type="checkbox" checked={form.isNew} onChange={(e) => setForm({ ...form, isNew: e.target.checked })} className="w-5 h-5 text-red-600 rounded border-slate-300 focus:ring-red-500" />
-              <span className="text-sm font-medium text-slate-700">Display "NEW" badge</span>
+              <span className="text-sm font-medium text-slate-700">Display &quot;NEW&quot; badge</span>
             </label>
           </div>
 

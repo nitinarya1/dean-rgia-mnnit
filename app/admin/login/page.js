@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { login } from "@/lib/api";
 
 export default function AdminLogin() {
@@ -17,6 +18,7 @@ export default function AdminLogin() {
   useEffect(() => {
     const msg = sessionStorage.getItem("refresh_logout");
     if (msg) {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       setInfoMsg(msg);
       sessionStorage.removeItem("refresh_logout");
     }
@@ -162,10 +164,10 @@ export default function AdminLogin() {
             </form>
             
             <div className="mt-14 pt-8 border-t border-slate-200 flex items-center justify-center">
-              <a href="/" className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-teal-700 font-semibold transition-colors group">
+              <Link href="/" className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-teal-700 font-semibold transition-colors group">
                 <svg className="w-4 h-4 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
                 Return to Public Website
-              </a>
+              </Link>
             </div>
             
           </div>

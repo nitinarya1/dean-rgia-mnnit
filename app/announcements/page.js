@@ -48,9 +48,6 @@ export default function AnnouncementsPage() {
   const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
   const paginated = filtered.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE);
 
-  // Reset to page 1 when filters change
-  useEffect(() => { setPage(1); }, [search, yearFilter]);
-
   return (
     <div className="min-h-screen bg-slate-50">
       <div className="bg-white border-b border-slate-200 py-3">
@@ -74,13 +71,13 @@ export default function AnnouncementsPage() {
                 type="text"
                 placeholder="Search announcements..."
                 value={search}
-                onChange={(e) => setSearch(e.target.value)}
+                onChange={(e) => { setSearch(e.target.value); setPage(1); }}
                 className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/50 shadow-sm"
               />
             </div>
             <select
               value={yearFilter}
-              onChange={(e) => setYearFilter(e.target.value)}
+              onChange={(e) => { setYearFilter(e.target.value); setPage(1); }}
               className="px-4 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/50 shadow-sm"
             >
               <option value="all">All Years</option>
