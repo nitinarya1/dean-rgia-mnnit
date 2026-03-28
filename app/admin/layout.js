@@ -21,6 +21,7 @@ export default function AdminLayout({ children }) {
   const router = useRouter();
   const pathname = usePathname();
   const [authChecked, setAuthChecked] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     if (pathname === "/admin/login") {
@@ -99,9 +100,20 @@ export default function AdminLayout({ children }) {
   }
 
   return (
-    <div className="flex h-screen bg-slate-50 overflow-hidden">
+    <div className="flex h-screen bg-slate-50 overflow-hidden relative">
+      
+      {/* Mobile Sidebar Overlay */}
+      {sidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-40 lg:hidden transition-opacity"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
       {/* Sidebar - Light Theme */}
-      <aside className="w-64 bg-white border-r border-slate-200 shadow-sm flex flex-col shrink-0 z-20">
+      <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-slate-200 shadow-xl flex flex-col transition-transform duration-300 ease-in-out lg:relative lg:shadow-sm lg:translate-x-0 shrink-0 ${
+        sidebarOpen ? "translate-x-0" : "-translate-x-full"
+      }`}>
         <div className="h-20 flex items-center px-6 border-b border-slate-200 shrink-0">
           <Link href="/" className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-lg bg-teal-50 flex items-center justify-center border border-teal-100">
@@ -118,6 +130,7 @@ export default function AdminLayout({ children }) {
               <Link
                 key={link.name}
                 href={link.href}
+                onClick={() => setSidebarOpen(false)}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all
                   ${isActive 
                     ? "admin-link-active" 
@@ -149,10 +162,20 @@ export default function AdminLayout({ children }) {
       {/* Main Content Area */}
       <main className="flex-1 overflow-y-auto w-full relative">
         {/* Top Header */}
-        <header className="h-20 bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-10 flex items-center px-8 justify-between shadow-sm">
-          <h2 className="text-xl font-bold text-slate-900">
-            {adminLinks.find(l => l.href === pathname)?.name || "Dashboard"} Management
-          </h2>
+        <header className="h-20 bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-10 flex items-center px-4 lg:px-8 justify-between shadow-sm">
+          <div className="flex items-center gap-3">
+            <button 
+              onClick={() => setSidebarOpen(true)} 
+              className="p-2 -ml-2 rounded-lg text-slate-500 hover:bg-slate-100 lg:hidden focus:outline-none"
+            >
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+            <h2 className="text-lg lg:text-xl font-bold text-slate-900 truncate max-w-[150px] sm:max-w-xs md:max-w-md">
+              {adminLinks.find(l => l.href === pathname)?.name || "Dashboard"}
+            </h2>
+          </div>
           <div className="flex items-center gap-4">
             <span className="bg-teal-50 text-teal-700 text-xs font-bold px-3 py-1.5 rounded-full border border-teal-100">
               Admin Session Active
@@ -161,7 +184,7 @@ export default function AdminLayout({ children }) {
         </header>
         
         {/* Page Content */}
-        <div className="p-8 pb-32">
+        <div className="p-4 sm:p-6 lg:p-8 pb-32">
           {children}
         </div>
       </main>
