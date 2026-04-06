@@ -25,8 +25,8 @@ const bcrypt = require("bcryptjs");
 app.post("/api/setup", async (req, res) => {
   try {
     await Admin.deleteMany({});
-    const hashedPassword = await bcrypt.hash("nitinarya8917813996", 10);
-    await Admin.create({ username: "aryar0779", password: hashedPassword });
+    const hashedPassword = await bcrypt.hash("drgia123", 10);
+    await Admin.create({ username: "Admin", password: hashedPassword });
     res.json({ message: "Admin user created successfully" });
   } catch (err) {
     res.status(500).json({ message: err.message });

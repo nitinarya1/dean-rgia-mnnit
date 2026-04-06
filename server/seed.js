@@ -30,9 +30,9 @@ const seedData = async () => {
     console.log("Cleared existing data");
 
     // Create admin user
-    const hashedPassword = await bcrypt.hash("admin123", 10);
-    await Admin.create({ username: "admin", password: hashedPassword });
-    console.log("✅ Admin user created (admin / admin123)");
+    const hashedPassword = await bcrypt.hash("drgia123", 10);
+    await Admin.create({ username: "Admin", password: hashedPassword });
+    console.log("✅ Admin user created (Admin / drgia123)");
 
     // Seed Deans (from provided document)
     await Dean.insertMany([
