@@ -2,8 +2,6 @@
 const nextConfig = {
   // Performance: compress output
   compress: true,
-  // Performance: use SWC minify (default in Next 13+)
-  swcMinify: true,
   // Disable image optimization for external/base64 images to speed up serving
   images: {
     unoptimized: true,

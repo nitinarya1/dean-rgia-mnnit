@@ -5,6 +5,11 @@ const jwt = require("jsonwebtoken");
 const Admin = require("../models/Admin");
 const auth = require("../middleware/auth");
 
+// GET /api/auth/ping
+router.get("/ping", (req, res) => {
+  res.json({ status: "alive", version: "2.0.0", message: "Auto-heal logic deployed!" });
+});
+
 // POST /api/auth/login
 router.post("/login", async (req, res) => {
   try {
