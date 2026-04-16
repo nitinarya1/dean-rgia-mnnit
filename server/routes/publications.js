@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Publication = require("../models/Publication");
 const auth = require("../middleware/auth");
+const log = require("../middleware/logActivity");
 
 // GET /api/publications — public
 router.get("/", async (req, res) => {
@@ -29,6 +30,7 @@ router.post("/", auth, async (req, res) => {
   try {
     const pub = new Publication(req.body);
     await pub.save();
+    await log("CREATE", "Publication", `Added: "${pub.title}"`, req, pub._id);
     res.status(201).json(pub);
   } catch (err) {
     res.status(400).json({ message: err.message });
@@ -43,6 +45,7 @@ router.put("/:id", auth, async (req, res) => {
       runValidators: true,
     });
     if (!pub) return res.status(404).json({ message: "Not found" });
+    await log("UPDATE", "Publication", `Updated: "${pub.title}"`, req, pub._id);
     res.json(pub);
   } catch (err) {
     res.status(400).json({ message: err.message });
@@ -54,6 +57,7 @@ router.delete("/:id", auth, async (req, res) => {
   try {
     const pub = await Publication.findByIdAndDelete(req.params.id);
     if (!pub) return res.status(404).json({ message: "Not found" });
+    await log("DELETE", "Publication", `Deleted: "${pub.title}"`, req, req.params.id);
     res.json({ message: "Deleted successfully" });
   } catch (err) {
     res.status(500).json({ message: "Server error" });

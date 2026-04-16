@@ -2,11 +2,29 @@ const express = require("express");
 const router = express.Router();
 const Contact = require("../models/Contact");
 const auth = require("../middleware/auth");
+const xss = require("xss");
 
 // POST /api/contacts — public (form submission)
 router.post("/", async (req, res) => {
   try {
-    const contact = new Contact(req.body);
+    const { name, email, subject, message } = req.body;
+
+    // Basic validation
+    if (!name || !email || !subject || !message) {
+      return res.status(400).json({ message: "All fields are required." });
+    }
+    if (name.length > 200 || subject.length > 500 || message.length > 5000) {
+      return res.status(400).json({ message: "Input too long." });
+    }
+
+    // XSS Sanitization: strip any malicious HTML/scripts before saving
+    const contact = new Contact({
+      name: xss(name.trim()),
+      email: xss(email.trim().toLowerCase()),
+      subject: xss(subject.trim()),
+      message: xss(message.trim()),
+    });
+
     await contact.save();
     res.status(201).json({ message: "Message sent successfully!" });
   } catch (err) {

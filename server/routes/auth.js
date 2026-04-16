@@ -7,45 +7,38 @@ const auth = require("../middleware/auth");
 
 // GET /api/auth/ping
 router.get("/ping", (req, res) => {
-  res.json({ status: "alive", version: "2.0.0", message: "Auto-heal logic deployed!" });
+  res.json({ status: "alive", version: "3.0.0" });
 });
 
-// POST /api/auth/login
+// POST /api/auth/login (rate limited in index.js)
 router.post("/login", async (req, res) => {
   try {
     const { username, password } = req.body;
 
-    const trimmedUsername = username?.trim() || "";
-    let admin = await Admin.findOne({ username: { $regex: new RegExp(`^${trimmedUsername}$`, "i") } });
-
-    // Auto-heal: If seed failed on deployment and they use the exact requested credentials
-    if (!admin && trimmedUsername.toLowerCase() === "admin" && password === "drgia123") {
-      const hashedPassword = await bcrypt.hash("drgia123", 10);
-      admin = await Admin.create({ username: "Admin", password: hashedPassword });
+    if (!username || !password) {
+      return res.status(400).json({ message: "Username and password are required." });
     }
+
+    const trimmedUsername = username.trim();
+    const admin = await Admin.findOne({
+      username: { $regex: new RegExp(`^${trimmedUsername}$`, "i") },
+    });
 
     if (!admin) {
-      return res.status(400).json({ message: "Invalid credentials" });
+      // Generic message: don't reveal whether user exists or not
+      return res.status(401).json({ message: "Invalid credentials" });
     }
 
-    let isMatch = await bcrypt.compare(password, admin.password);
-
-    // Auto-heal: If password was somehow not updated by seed
-    if (!isMatch && trimmedUsername.toLowerCase() === "admin" && password === "drgia123") {
-      const hashedPassword = await bcrypt.hash("drgia123", 10);
-      admin.password = hashedPassword;
-      await admin.save();
-      isMatch = true;
-    }
-
+    const isMatch = await bcrypt.compare(password, admin.password);
     if (!isMatch) {
-      return res.status(400).json({ message: "Invalid credentials" });
+      return res.status(401).json({ message: "Invalid credentials" });
     }
 
+    // Short-lived token (2 hours)
     const token = jwt.sign(
       { id: admin._id, username: admin.username },
       process.env.JWT_SECRET,
-      { expiresIn: "7d" }
+      { expiresIn: "2h" }
     );
 
     res.json({ token, username: admin.username });

@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 const Mou = require("../models/Mou");
 const auth = require("../middleware/auth");
+const log = require("../middleware/logActivity");
 
-// GET /api/mous — public
 router.get("/", async (req, res) => {
   try {
     const mous = await Mou.find().sort({ date: -1 });
@@ -13,7 +13,6 @@ router.get("/", async (req, res) => {
   }
 });
 
-// GET /api/mous/:id
 router.get("/:id", async (req, res) => {
   try {
     const mou = await Mou.findById(req.params.id);
@@ -24,36 +23,33 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// POST /api/mous — admin only
 router.post("/", auth, async (req, res) => {
   try {
     const mou = new Mou(req.body);
     await mou.save();
+    await log("CREATE", "MoU", `Added MoU with: "${mou.institution}"`, req, mou._id);
     res.status(201).json(mou);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
 });
 
-// PUT /api/mous/:id — admin only
 router.put("/:id", auth, async (req, res) => {
   try {
-    const mou = await Mou.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
-    });
+    const mou = await Mou.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
     if (!mou) return res.status(404).json({ message: "Not found" });
+    await log("UPDATE", "MoU", `Updated MoU: "${mou.institution}"`, req, mou._id);
     res.json(mou);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
 });
 
-// DELETE /api/mous/:id — admin only
 router.delete("/:id", auth, async (req, res) => {
   try {
     const mou = await Mou.findByIdAndDelete(req.params.id);
     if (!mou) return res.status(404).json({ message: "Not found" });
+    await log("DELETE", "MoU", `Deleted MoU: "${mou.institution}"`, req, req.params.id);
     res.json({ message: "Deleted successfully" });
   } catch (err) {
     res.status(500).json({ message: "Server error" });
