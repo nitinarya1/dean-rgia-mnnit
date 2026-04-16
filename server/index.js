@@ -9,6 +9,10 @@ require("dotenv").config();
 const app = express();
 
 // ─── Security Middleware ───────────────────────────────────────────────────────
+// Trust proxy is required because Render puts the app behind a load balancer.
+// Without this, rate limiting blocks everyone as they all share the balancer's IP.
+app.set("trust proxy", 1);
+
 // Helmet: sets secure HTTP headers (XSS, clickjack, MIME-sniff protection)
 app.use(helmet({ contentSecurityPolicy: false }));
 
@@ -21,9 +25,12 @@ const allowedOrigins = [
 
 app.use(cors({
   origin: (origin, callback) => {
-    // Allow requests with no origin (e.g. mobile apps, curl)
-    if (!origin || allowedOrigins.includes(origin)) return callback(null, true);
-    callback(new Error("Not allowed by CORS"));
+    // Allow requests with no origin (e.g., Postman) or from any Vercel preview branch
+    if (!origin || allowedOrigins.includes(origin) || origin.endsWith(".vercel.app")) {
+      return callback(null, true);
+    }
+    // Safely deny CORS without throwing a 500 error
+    callback(null, false);
   },
   credentials: true,
 }));
